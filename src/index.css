@@ -211,3 +211,20 @@ div {
   outline: none;
   box-shadow: 0 0 10px rgba(201, 161, 74, 0.4); 
 }
+.loading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #C9A14A; 
+  background-color: #f5f3ef; 
+  text-align: center;
+  letter-spacing: 1px;
+  animation: fadeIn 1s ease-in-out; 
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

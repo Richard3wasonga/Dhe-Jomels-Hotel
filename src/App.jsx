@@ -14,7 +14,9 @@ const App = () => {
       }catch (error){
         console.error('Oops error fetching menu:', error)
       }finally{
-        setloading(false)
+        setTimeout(() => {
+          setloading(false)
+        },3000)
       }
 
     }
@@ -22,7 +24,7 @@ const App = () => {
   }, [])
  
 
-  if(loading) return <div>Loading menu...</div>
+  if(loading) return <div className="loading-message">Loading menu...</div>
   
   return (
     <div>
