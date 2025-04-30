@@ -10,9 +10,7 @@ const App = () => {
         const response = await fetch('https://jomels-menu.vercel.app/menu');
         const data = await response.json();
         setmenuInfo(data);
-        
-        console.log(data)
-
+      
       }catch (error){
         console.error('Oops error fetching menu:', error)
       }finally{
