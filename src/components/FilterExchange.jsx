@@ -1,0 +1,51 @@
+import React,{useState} from 'react'
+import Options from './Options'
+import Menu from './Menu'
+
+const FilterExchange = ({menu}) => {
+    const [filterBar, setfilterBar] = useState(false)
+    const [selectedCategory, setselectedCategory] = useState([])
+
+    const toggleFilterBar = () => {
+        setfilterBar(prev => !prev)
+
+    }
+
+    const handleCategoryChange = (category) => {
+        setselectedCategory(prev => 
+            prev.includes(category)
+            ? prev.filter(c => c !== category)
+            : [...prev, category]
+        )
+    }
+
+    const categories = [...new Set(menu.map(item => item.category))]
+
+    const filteredItem = selectedCategory.length === 0
+    ? menu
+    : menu.filter(item => selectedCategory.includes(item.category))
+
+    
+  return (
+    <div>
+        <Options toggleFilterBar={toggleFilterBar}/>
+        <div className={`sidebar ${filterBar ? 'show' : 'hide'}`}>
+            <h2>Filter menu</h2>
+            {categories.map((category,id) => (
+                <label key={id}>
+                    <input
+                        type='checkbox'
+                        checked={selectedCategory.includes(category)}
+                        onChange={() => handleCategoryChange(category)}
+                    />
+                    {category}
+                </label>
+            ))}
+            <button onClick={toggleFilterBar}>Close</button>
+        </div>
+        <Menu menu={filteredItem}/>
+    </div>
+  )
+}
+
+export default FilterExchange

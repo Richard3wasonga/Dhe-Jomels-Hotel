@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import Menu from './components/Menu'
+import FilterExchange from './components/FilterExchange'
 
 const App = () => {
   const [menuInfo, setmenuInfo] = useState([])
@@ -10,6 +10,8 @@ const App = () => {
         const response = await fetch('https://jomels-menu.vercel.app/menu');
         const data = await response.json();
         setmenuInfo(data);
+        
+        console.log(data)
 
       }catch (error){
         console.error('Oops error fetching menu:', error)
@@ -17,15 +19,16 @@ const App = () => {
         setloading(false)
       }
 
-      fetchMenu()
     }
+    fetchMenu()
   }, [])
+ 
 
   if(loading) return <div>Loading menu...</div>
   
   return (
     <div>
-      <Menu menu={menuInfo}/>
+      <FilterExchange  menu={menuInfo}/>
     </div>
   )
 }
