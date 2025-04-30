@@ -5,6 +5,7 @@ import Menu from './Menu'
 const FilterExchange = ({menu}) => {
     const [filterBar, setfilterBar] = useState(false)
     const [selectedCategory, setselectedCategory] = useState([])
+    const [searchQuery, setsearchQuery] = useState('')
 
     const toggleFilterBar = () => {
         setfilterBar(prev => !prev)
@@ -21,14 +22,16 @@ const FilterExchange = ({menu}) => {
 
     const categories = [...new Set(menu.map(item => item.category))]
 
-    const filteredItem = selectedCategory.length === 0
-    ? menu
-    : menu.filter(item => selectedCategory.includes(item.category))
-
+    const filteredItem = menu.filter(item => {
+        const matchesCategory = selectedCategory.length === 0 || selectedCategory.includes(item.category);
+        const matchesSearchQuery = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+      
+        return matchesCategory && matchesSearchQuery;
+      });
     
   return (
     <div>
-        <Options toggleFilterBar={toggleFilterBar}/>
+        <Options toggleFilterBar={toggleFilterBar} searchQuery={searchQuery} setsearchQuery={setsearchQuery}/>
         <div className={`sidebar ${filterBar ? 'show' : 'hide'}`}>
             <h2>Filter menu</h2>
             {categories.map((category,id) => (
